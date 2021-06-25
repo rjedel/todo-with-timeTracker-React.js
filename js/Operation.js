@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { updateTime } from "./api/operations";
+import { updateTime, deleteOper } from "./api/operations";
 
 const Operation = ({ description, id, onUpdateOperat, onRemoveOperation, timeSpent, status }) => {
   const [visible, setVisible] = useState(true);
@@ -13,6 +13,13 @@ const Operation = ({ description, id, onUpdateOperat, onRemoveOperation, timeSpe
       updateTime(id, description, newTime, onUpdateOperat);
       setVisible(true);
       setTimeVal("");
+    }
+  };
+
+  const removeHandler = e => {
+    e.preventDefault();
+    if (typeof onRemoveOperation === "function") {
+      deleteOper(id, onRemoveOperation);
     }
   };
 
@@ -71,7 +78,12 @@ const Operation = ({ description, id, onUpdateOperat, onRemoveOperation, timeSpe
           <i className="fas fa-clock ml-1"></i>
         </button>
 
-        <button className="btn btn-outline-danger btn-sm"><i className="fas fa-trash"></i></button>
+        <button
+          onClick={removeHandler}
+          className="btn btn-outline-danger btn-sm"
+        >
+          <i className="fas fa-trash"></i>
+        </button>
       </div>
     </li>
   );

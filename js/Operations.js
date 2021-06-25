@@ -16,6 +16,17 @@ const Operations = ({ taskID, form, setForm, operations, setOperations, status }
     }
   };
 
+  const onRemoveOperation = operId => {
+    if (typeof setOperations === "function") {
+      setOperations(prevState => {
+        const buff = [...prevState];
+        const idx = buff.indexOf(buff.find(val => val.id === operId));
+        buff.splice(idx, 1);
+        return buff;
+      });
+    }
+  };
+
   const newOperat = operat => {
     if (typeof setOperations === "function" && typeof setForm === "function") {
       setOperations(prevState => [operat, ...prevState]);
@@ -65,7 +76,7 @@ const Operations = ({ taskID, form, setForm, operations, setOperations, status }
                 description={val.description}
                 id={val.id}
                 onUpdateOperat={onUpdateOperat}
-                // onRemoveOperation={}
+                onRemoveOperation={onRemoveOperation}
                 timeSpent={val.timeSpent}
                 status={status}
               />

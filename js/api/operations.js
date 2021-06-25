@@ -73,8 +73,31 @@ const updateTime = async (id, description, timeSpent, successCallback) => {
   }
 };
 
+const deleteOper = async (id, successCallback) => {
+  try {
+    const response = await fetch(`${API_URL}/operations/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: API_KEY,
+      },
+    });
+
+    const data = await response.json();
+
+    if (data.error || typeof successCallback !== "function") {
+      throw new Error("Error!");
+    }
+
+    successCallback(id);
+
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export {
   getOperations,
   addOperat,
   updateTime,
+  deleteOper,
 };
