@@ -15,6 +15,18 @@ function App() {
     setTasks(prevState => [task, ...prevState]);
   };
 
+  const onRemoveTask = taskId => {
+    setTasks(prevState => {
+      return prevState.filter(val => val.id !== taskId);
+    });
+  };
+
+  const onFinishTask = taskId => {
+    setTasks(prevState => {
+      return prevState.map(val => val.id === taskId ? { ...val, status: "close" } : val);
+    });
+  };
+
   return (
     <>
       <NewTask
@@ -30,6 +42,8 @@ function App() {
               description={val.description}
               status={val.status}
               id={val.id}
+              onRemoveTask={onRemoveTask}
+              onFinishTask={onFinishTask}
             />
           );
         })
