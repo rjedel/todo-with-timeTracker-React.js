@@ -28,6 +28,7 @@ function App() {
               key={val.id}
               title={val.title}
               description={val.description}
+              status={val.status}
               id={val.id}
             />
           );
